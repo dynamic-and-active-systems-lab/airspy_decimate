@@ -166,17 +166,21 @@ state = 'run';
 fprintf('Decimate: Setup complete. Running...\n')
 tic;
 
+%Initialize for coder
 data = single(complex(zeros(samplesAtFlush, 1)));
 
+%Setup loop time variables for tracking actual processing time
 flushes        = 0;
 loopTime       = 0;
 loopTimeRecordHorizon = 100;
 loopTimeRecord = nan(loopTimeRecordHorizon,1);
+
 while 1 
     switch state
         case 'run'
             state = 'run';
             dataReceived = udpReceive();
+
             if (~isempty(dataReceived)) 
                 %If input data isn't streaming initially, the decimator may
                 %read a real value and then when it starts coming in
@@ -204,7 +208,9 @@ while 1
                 end
                 
             else
+
                 pause(rawFrameTime/2);
+
             end
             
             cmdReceived  = udpCommand();
@@ -220,6 +226,7 @@ while 1
             if strcmp(state,'run')
                 reset(udpReceive);%Reset to clear buffer so data is fresh - in case state had been idle
             end
+
         case 'kill'
             fprintf('Decimate: Entering Kill state. Shutting down.\n')
             state = 'dead';
@@ -227,10 +234,12 @@ while 1
             release(udpReceive)
             release(udpCommand)
             break
+
         otherwise
             %Should never get to this case, but jump to idle if we get
             %here.
             state = 'idle';
+
     end
 
 end
