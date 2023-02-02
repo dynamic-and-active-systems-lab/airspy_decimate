@@ -166,7 +166,7 @@ udpSend(nullPacket);%Add one for blank time stamp
 
 state = 'run';
 fprintf('Decimate: Setup complete. Running...\n')
-tic;
+
 
 %Initialize for coder
 data = complex(single(zeros(samplesAtFlush, 1)));
@@ -180,73 +180,110 @@ loopTimeRecord = nan(loopTimeRecordHorizon,1);
 manualBuffer = single(complex(zeros(samplesAtFlush,2)));
 bufferInd    = 0;
 readyToFlush  = 0;
+time2Write = 0;
+samplesTransmitted = 0;
+packetsTransmitted = 0;
+tic
+%packets = 0;
 while 1 
     switch state
         case 'run'
             state = 'run';
             dataReceived = udpReceive();
 
-            if (~isempty(dataReceived)) 
-                %If input data isn't streaming initially, the decimator may
-                %read a real value and then when it starts coming in
-                %complex, decimator crashes because the type changed
-                %without releasing first
-                if isreal(dataReceived)
-                    release(decimator)
-                end
+            if ~isempty(dataReceived) && mod(numel(dataReceived),decimationFactor) == 0 && ~isreal(dataReceived)
+                dataDecimated  = decimator(dataReceived(1:128).') / gainCIC;
+                write(dataBufferFIFO, dataDecimated);
                 
-                %tic
-                %write(dataBufferFIFO, dataReceived(:));%Call with (:) to help coder realize it is a single channel
-                nReceived = numel(dataReceived);
-
-                inds2Set = 1 + mod(bufferInd + (0:nReceived-1) , samplesAtFlush * 2); %Wrap to beginning when at end of buffer
-                %try
-                    manualBuffer(inds2Set) = complex(dataReceived(:));
-                % catch
-                %     pause(1)
-                % end
-                bufferInd = bufferInd + nReceived ;
-                if any(inds2Set == 1) && bufferInd ~= nReceived + 1
-                    readyToFlush = 2;
-                elseif any(inds2Set == samplesAtFlush)
-                    readyToFlush = 1;
-                else
-                    readyToFlush = 0;
+                if dataBufferFIFO.NumUnreadSamples >= samplesPerChannelMessage
+                    udpSend(read( dataBufferFIFO, samplesPerChannelMessage ));
+                    samplesTransmitted = samplesTransmitted + samplesPerChannelMessage;
+                    packetsTransmitted = packetsTransmitted + 1;
+                    if packetsTransmitted == 20
+                        tic
+                        samplesTransmitted = 0;
+                    end
+                    fprintf('Current Average Output Sample Rate: %6.6f \n', samplesTransmitted/toc)
                 end
-                    
-                % time2Write = toc;
-                % fprintf('Time required to write: %6.6f \n', time2Write)
-
-
-                if readyToFlush~=0%dataBufferFIFO.NumUnreadSamples >= samplesAtFlush
-                    loopTime = toc;
-                    loopTimeRecord( 1 + mod( flushes, loopTimeRecordHorizon), 1 ) = loopTime;
-                    flushes = flushes + 1;
-                    fprintf('Flushing Decimate Buffer: Running - Buffer filled with %u samples. Flushing to output.\n',uint32(samplesAtFlush))
-                    fprintf('Moving average of time between buffer flushes: %6.6f.  Expected: %6.6f. \n', mean(loopTimeRecord,"all","omitnan") , samplesPerChannelMessage/outputSampleRate)
-                    tic;
-                    %Call out indicies so coder knows it is a fixed size. 
-                    %data( 1:samplesAtFlush ) = read( dataBufferFIFO, samplesAtFlush );
-                    data = complex(manualBuffer( 1 : samplesAtFlush , readyToFlush));
-                    %time2Read = toc;
-
-                    dataDecimated            = decimator(data) / gainCIC;
-                    %time2Decimate = toc - time2Read;
-
-                    udpSend(dataDecimated(:))
-                    %time2Send = toc - time2Read - time2Decimate;
-                    %time2Decimate = toc;
-                    
-                    % fprintf('Time required to read: %6.6f \n', time2Read)
-                    % fprintf('Time required to decimate: %6.6f \n', time2Decimate)
-                    % fprintf('Time required to send: %6.6f \n', time2Send)
-                end
-                
-            else
-
-                pause(rawFrameTime/2);
-
             end
+
+            % if (~isempty(dataReceived)) 
+            %     %If input data isn't streaming initially, the decimator may
+            %     %read a real value and then when it starts coming in
+            %     %complex, decimator crashes because the type changed
+            %     %without releasing first
+            %     if isreal(dataReceived)
+            % 
+            %         release(decimator) 
+            %     end
+            % 
+            % 
+            %     time2WriteHold = toc;
+            %     %write(dataBufferFIFO, dataReceived(:));%Call with (:) to help coder realize it is a single channel
+            %     nReceived = numel(dataReceived);
+            % 
+            %     inds2Set = 1 + mod(bufferInd + (0:nReceived-1) , samplesAtFlush * 2); %Wrap to beginning when at end of buffer
+            %     %try
+            %         manualBuffer(inds2Set) = complex(dataReceived(:));
+            %     % catch
+            %     %     pause(1)
+            %     % end
+            %     bufferInd = bufferInd + nReceived ;
+            %     if any(inds2Set == 1) && bufferInd ~= nReceived + 1
+            %         readyToFlush = 2;
+            %     elseif any(inds2Set == samplesAtFlush)
+            %         readyToFlush = 1;
+            %     else
+            %         readyToFlush = 0;
+            %     end
+            % 
+            %     time2Write = time2Write + ( toc - time2WriteHold ) ;
+            %     % fprintf('Time required to write: %6.6f \n', time2Write)
+            % 
+            % 
+            %     if readyToFlush ~=0 %dataBufferFIFO.NumUnreadSamples >= samplesAtFlush
+            %         time2WriteHold = time2Write;
+            %         time2Write = 0;
+            % 
+            %         loopTime = toc;
+            %         loopTimeRecord( 1 + mod( flushes, loopTimeRecordHorizon), 1 ) = loopTime;
+            %         flushes = flushes + 1;
+            %         fprintf('Flushing Decimate Buffer: Running - Buffer filled with %u samples. Flushing to output.\n',uint32(samplesAtFlush))
+            %         fprintf('Moving average of time between buffer flushes: %6.6f.  Expected: %6.6f. \n', mean(loopTimeRecord,"all","omitnan") , samplesPerChannelMessage/outputSampleRate)
+            %         tic;
+            %         %Call out indicies so coder knows it is a fixed size. 
+            %         %data( 1:samplesAtFlush ) = read( dataBufferFIFO, samplesAtFlush );
+            %         data = complex(manualBuffer( 1 : samplesAtFlush , readyToFlush));
+            % 
+            %         time2Read = toc;
+            % 
+            %         dataDecimated            = decimator(data) / gainCIC;
+            % 
+            %         time2Decimate = toc - time2Read;
+            % 
+            %         udpSend(dataDecimated(:))
+            % 
+            %         time2Send = toc - time2Read - time2Decimate;
+            % 
+            %         fprintf('Time required to write to buffer: %6.6f \n', time2WriteHold)
+            %         fprintf('Time required to read buffer: %6.6f \n', time2Read)
+            %         fprintf('Time required to decimate: %6.6f \n', time2Decimate)
+            %         fprintf('Time required to send: %6.6f \n', time2Send)
+            %         % samplesTransmitted = samplesTransmitted + samplesAtFlush;
+            %         % packets = packets+1;
+            %         % if packets == 20
+            %         %     tic
+            %         %     samplesTransmitted = 0;
+            %         % end
+            %         % fprintf('Current Average Output Sample Rate: %6.6f \n', samplesTransmitted/toc)
+            % 
+            %     end
+            % 
+            % else
+            % 
+            %     %pause(rawFrameTime/2);
+            % 
+            % end
             
             cmdReceived  = udpCommand();
             state = checkcommand(cmdReceived,state);
