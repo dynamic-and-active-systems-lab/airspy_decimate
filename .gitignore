@@ -36,11 +36,9 @@ Temporary Items
 
 
 # Matlab Coder Generated Files
-codegen
-airspyhf_channelize.prj
+*.o
 
 # Other files
-decimate_8
-decimate_8.asv
-decimate_8.prj
+airspy_data_reader.m
+airspy_decimate
 *.asv
