@@ -1,4 +1,4 @@
-# airspy_decimat
+# airspy_decimate
 This code allows decimates incoming SDR data from an Airspy Mini and provides it to other processes via UDP. This software is designed specifically to work with the Airpy Mini operatating at 3 MSPS. It was was developed in Matlab and can be converted to an executable using Matlab Coder. Instructions to do so are contained within this REAME. Some of the Matlab functions developed here has some interesting methods necessitated by the restrictions on system objects in Matlab when using Matlab Coder. 
 
 **NOTE: This software only currently supports incoming sample rates of 3 MSPS and decimates by a factor of 8. It has been simplified to be specifically designed for the UAV-RT project. It is designed to be used in conjunction with airspy_channelize and incoming Airspy Mini IQ data at 3 MSPS ** 
