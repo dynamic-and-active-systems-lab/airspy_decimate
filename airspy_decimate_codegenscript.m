@@ -6,13 +6,16 @@
 % See also CODER, CODER.CONFIG, CODER.TYPEOF, CODEGEN.
 
 %% Create configuration object of class 'coder.EmbeddedCodeConfig'.
-%cfg = coder.config('exe','ecoder',true);
-cfg = coder.config('exe');
+cfg = coder.config('exe','ecoder',true);
+%cfg = coder.config('exe');
 cfg.HardwareImplementation.ProdEqTarget = false;
 cfg.TargetLang = 'C++';
-% cfg.GenCodeOnly = true;
-% cfg.GenerateExampleMain = 'DoNotGenerate';
+
+cfg.GenCodeOnly = true;
+cfg.GenerateExampleMain = 'DoNotGenerate';
 % cfg.GenerateMakefile = false;
+cfg.GenerateMakefile = true;%Needed so Don has example
+
 cfg.GenerateReport = true;
 cfg.MaxIdLength = 1024;
 cfg.ReportPotentialDifferences = false;
@@ -42,7 +45,9 @@ case 'maci64'
 case 'maca64'
     cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Mac)';
 end
-cfg.GenerateExampleMain = 'GenerateCodeAndCompile'; % provides starter main.c
+
+% cfg.GenerateExampleMain = 'GenerateCodeAndCompile'; % provides starter main.c
+
 switch computer('arch')
 case 'glnxa64'
     codegen airspy_decimate -config cfg
