@@ -4,7 +4,7 @@
 // File: _coder_airspy_decimate_info.cpp
 //
 // MATLAB Coder version            : 24.2
-// C/C++ source code generated on  : 03-Sep-2024 10:57:31
+// C/C++ source code generated on  : 04-Sep-2024 12:38:58
 //
 
 // Include Files
@@ -23,32 +23,29 @@ static const mxArray *emlrtMexFcnResolvedFunctionsInfo();
 static const mxArray *emlrtMexFcnResolvedFunctionsInfo()
 {
   const mxArray *nameCaptureInfo;
-  const char_T *data[7]{
-      "789ced584d6fd34010b55110bd003920240e15429c83a556aac4b1c4216dd53a565c57a5"
-      "11aa37ce24de60afc3daa99272c9892b12bf017140e2e327f5c8cfc0"
-      "8ee37c58ac36924330267b198f9f77dfcc8efdc6b6201e9e888220dc13a2f1733bb27727"
-      "7e71626f098b23898b137b3be10bd3f385857931fe61624d97f830f0",
-      "23872007a6335bae830922fee9b0070205cfb5afa03546dad88653ec8036ef28a1e7bc9c"
-      "83a64e0885c7650bcc375adf11a8e5cd22b4e79de97edc30f22d2cb9"
-      "1fef18fb514ce08dca6b49f7807a92e359a80d543ac64d8ae8502adb6ebfa5f92e451d90"
-      "6a04648aafa0a4b8d4b780927d8aaf5d8274129ca41ef683eb6b72e5",
-      "523dde7f55add774459610a65e6f78d902133bc887a4ffcc59c8779432dfc79c7c63bcec"
-      "3a3d1b061a261d1b34143a9e2eab753021cc641a8f91329e42c29fc5"
-      "1321a685686863be2d311ddf6726df22de28ffe17a0789110236be062928b38d9a25d36d"
-      "012df57d6c7b9259eab77a12a708e1adc1abc3fd25f7256967d76f8d",
-      "ed0febe9f8a15e17df37f4e0c93af9e2f1b7f8068cf596bdaf1f32f88a097cb083ce0389"
-      "de716b67feb9fadc9211191e556771a81c1e5e1c02c35fd7fa378cf9"
-      "9b7ef0fb7cb739f9c638438a3420816809fce726abfde013936f11cf723f888a10dd1879"
-      "ed071fdf3fdaf40361f5fd803847d5bd0ba5fbc2df3d5169fdb06d36",
-      "ab4e253ffdc060cce7ed6372b0f671557cbcefb3e204316d40f37a3b4ac9b7eaef81624a"
-      "3dfeca8927c61bb50c0bf2ec055d4cd6cb60e49f17ddca3bdfba7459"
-      "bf50cef6aa9adc550edeeaddce5045bbaa99a3f77483313fabba7c87c91721347ae473ab"
-      "cbdf39f1c4f8bfa2cbc97a198cfcf3a25b79e7dbe8f26ad63718f3b3",
-      "aacbbcff055ef06d3ccf374ac9b7eaff256975f90b279e18cfb42ec73f30c4b85aff8f6e"
-      "e59d6fa3cbe9d6ff05f3e66456",
+  const char_T *data[6]{
+      "789ced58cd6eda40185c5754ed252da7aa5255f55e895a4ad448bd16529a4821561ca228"
+      "f4c7cbfa034cbcb66b9b086ebc41ae7d915eab1efb087d8c3e4231f6"
+      "1ab3d26a916c2872d8031fc3b03be3cf66b40b528e4f1584d013148fbf2fe2ba97e06a52"
+      "1fa0e5c1f34a521f7218a59f5796e631fe2ea9c47542188731703085",
+      "74a6e952cbc14e7831f100f910b8f62d9873a667d9706151d0b3a01521fa2143a520a2a2"
+      "f7f501901b7d44913f08160eed2c48fbf15d70bd9515fbf156d08f2a"
+      "c7778e3eab0397826ae2c0567df0dc40c5961f7893af26108be21078fc86667c4e73fa7c"
+      "25f1c9f8ba4b3d1bc6bae5f46dd071048276433b0702d62df8a91f23",
+      "a79f0a87177e62860cb01f55a6f72ba7de17a1de32dfa9cbefd3ecc5c6dd1a714df06ba3"
+      "d0b20395d446a6a74a9a17dd5059ff9eae783d7c5d7cfff1bcfefcf1"
+      "a717d54de9d1e737af37a9c7c6ffd21b0bd65bf5797c26d0ab72fc781f5fcd2271df3dbb"
+      "0cafb4778306762627cd850f4da223f381047853ebdf97fc7d29f1c9",
+      "784184e8e0ccc206c99ff76dcddf4f42bd657e1df91b376f7e3b77f95b901e1b65cf5f87"
+      "9e340faf5bc3f7e1c1a9e69f1ff748b7498fca93bf8660beac8ffc10"
+      "f5b1283dd9f9a39a30c4069ccdc9694ebda2f7cdbf73fa010ef37e18df395beb4656e1fb"
+      "6c087c97256fcaaeb7a93c6d5fb72e0f9b7a63d8faf8ad3dec4f347c",
+      "a09112ed670dc1fc6dcdd34742bd98f1e39f7c69f3b42ff1c3f875e729df6743e0bb2c79"
+      "5376bd5d9e16b3be2198bfad792a3b5707b3b368566f9a53afe8ff15"
+      "f2e66957e287f16bc95376d0575897ef4fde945d6f97a7f9d6ff07aa8dab9f",
       ""};
   nameCaptureInfo = nullptr;
-  emlrtNameCaptureMxArrayR2016a(&data[0], 7680U, &nameCaptureInfo);
+  emlrtNameCaptureMxArrayR2016a(&data[0], 7176U, &nameCaptureInfo);
   return nameCaptureInfo;
 }
 
@@ -83,20 +80,19 @@ mxArray *emlrtMexFcnProperties()
   emlrtSetField(xEntryPoints, 0, "NumberOfOutputs",
                 emlrtMxCreateDoubleScalar(0.0));
   emlrtSetField(xEntryPoints, 0, "ConstantInputs", xInputs);
-  emlrtSetField(
-      xEntryPoints, 0, "ResolvedFilePath",
-      emlrtMxCreateString("/Users/mshafer/Library/CloudStorage/"
-                          "OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/"
-                          "airspy_decimate/airspy_decimate.m"));
+  emlrtSetField(xEntryPoints, 0, "ResolvedFilePath",
+                emlrtMxCreateString(
+                    "/home/dasl/repos/airspy_decimate/airspy_decimate.m"));
   emlrtSetField(xEntryPoints, 0, "TimeStamp",
-                emlrtMxCreateDoubleScalar(739493.36282407411));
+                emlrtMxCreateDoubleScalar(739499.52195601852));
   emlrtSetField(xEntryPoints, 0, "Constructor",
                 emlrtMxCreateLogicalScalar(false));
   emlrtSetField(xEntryPoints, 0, "Visible", emlrtMxCreateLogicalScalar(true));
   xResult =
       emlrtCreateStructMatrix(1, 1, 9, (const char_T **)&propFieldName[0]);
-  emlrtSetField(xResult, 0, "Version",
-                emlrtMxCreateString("24.2.0.2622594 (R2024b) Prerelease"));
+  emlrtSetField(
+      xResult, 0, "Version",
+      emlrtMxCreateString("24.2.0.2670998 (R2024b) Prerelease Update 3"));
   emlrtSetField(xResult, 0, "ResolvedFunctions",
                 (mxArray *)emlrtMexFcnResolvedFunctionsInfo());
   emlrtSetField(xResult, 0, "Checksum",

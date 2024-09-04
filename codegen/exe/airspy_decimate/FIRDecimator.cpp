@@ -4,7 +4,7 @@
 // File: FIRDecimator.cpp
 //
 // MATLAB Coder version            : 24.2
-// C/C++ source code generated on  : 03-Sep-2024 10:57:31
+// C/C++ source code generated on  : 04-Sep-2024 12:38:58
 //
 
 // Include Files
@@ -16,9 +16,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
-
-// Custom Source Code
-#include "udp.h"
 
 // Type Definitions
 struct rtEqualityCheckInfo {
@@ -357,8 +354,7 @@ void FIRDecimator::step(const creal32_T varargin_1_data[],
   nextPhaseIdx_tmp = cSFunObject.W0_PhaseIdx;
   nextPhaseIdx = nextPhaseIdx_tmp;
   outputLen = 0;
-  for (i = 0;
-       static_cast<unsigned int>(i) < static_cast<unsigned int>(inFrameSize);
+  for (i = 0; i < inFrameSize;
        i = static_cast<int>(static_cast<unsigned int>(i) + 1U)) {
     nextPhaseIdx++;
     if (nextPhaseIdx >= 8) {

@@ -2,7 +2,7 @@
 ## Makefile generated for component 'airspy_decimate'. 
 ## 
 ## Makefile     : airspy_decimate_rtw.mk
-## Generated on : Tue Sep 03 10:57:47 2024
+## Generated on : Wed Sep 04 12:39:14 2024
 ## Final product: $(START_DIR)/airspy_decimate
 ## Product type : executable
 ## 
@@ -18,23 +18,23 @@
 
 PRODUCT_NAME              = airspy_decimate
 MAKEFILE                  = airspy_decimate_rtw.mk
-MATLAB_ROOT               = /Applications/MATLAB_R2024b.app
-MATLAB_BIN                = /Applications/MATLAB_R2024b.app/bin
-MATLAB_ARCH_BIN           = $(MATLAB_BIN)/maci64
-START_DIR                 = /Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate
+MATLAB_ROOT               = /home/dasl/MATLAB
+MATLAB_BIN                = /home/dasl/MATLAB/bin
+MATLAB_ARCH_BIN           = $(MATLAB_BIN)/glnxa64
+START_DIR                 = /home/dasl/repos/airspy_decimate
 TGT_FCN_LIB               = ISO_C++11
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 
 RELATIVE_PATH_TO_ANCHOR   = ../../..
-C_STANDARD_OPTS           = -fno-common -fexceptions -fwrapv
-CPP_STANDARD_OPTS         = -std=c++14 -fno-common -fexceptions -fwrapv
+C_STANDARD_OPTS           = -fwrapv
+CPP_STANDARD_OPTS         = -fwrapv
 
 ###########################################################################
 ## TOOLCHAIN SPECIFICATIONS
 ###########################################################################
 
-# Toolchain Name:          Xcode with Clang | gmake (64-bit Mac)
+# Toolchain Name:          GNU gcc/g++ | gmake (64-bit Linux)
 # Supported Version(s):    
 # ToolchainInfo Version:   2024b
 # Specification Revision:  1.0
@@ -50,15 +50,10 @@ CPP_STANDARD_OPTS         = -std=c++14 -fno-common -fexceptions -fwrapv
 # MACROS
 #-----------
 
-ARCHS                               = x86_64
-XCODE_SDK_VER                       = $(shell perl $(MATLAB_ROOT)/rtw/c/tools/macsdkver.pl)
-XCODE_SDK                           = MacOSX$(XCODE_SDK_VER).sdk
-XCODE_DEVEL_DIR                     = $(shell xcode-select -print-path)
-XCODE_SDK_ROOT                      = $(XCODE_DEVEL_DIR)/Platforms/MacOSX.platform/Developer/SDKs/$(XCODE_SDK)
-XCODE_LD_VERSION                    = $(shell xcrun ld -v 2>&1 >/dev/null | head -n 1)
-XCODE_LD_VERSION_IS_DYLD            = $(findstring dyld,$(XCODE_LD_VERSION))
-XCODE_DYLD_NO_WARN_DUPLICATE_LDFLAG = -Wl,-no_warn_duplicate_libraries
-NO_WARN_DUPLICATE_LIBRARIES         = $(if $(XCODE_LD_VERSION_IS_DYLD),$(XCODE_DYLD_NO_WARN_DUPLICATE_LDFLAG),)
+WARN_FLAGS         = -Wall -W -Wwrite-strings -Winline -Wstrict-prototypes -Wnested-externs -Wpointer-arith -Wcast-align -Wno-stringop-overflow
+WARN_FLAGS_MAX     = $(WARN_FLAGS) -Wcast-qual -Wshadow
+CPP_WARN_FLAGS     = -Wall -W -Wwrite-strings -Winline -Wpointer-arith -Wcast-align -Wno-stringop-overflow
+CPP_WARN_FLAGS_MAX = $(CPP_WARN_FLAGS) -Wcast-qual -Wshadow
 
 TOOLCHAIN_SRCS = 
 TOOLCHAIN_INCS = 
@@ -68,20 +63,20 @@ TOOLCHAIN_LIBS =
 # BUILD TOOL COMMANDS
 #------------------------
 
-# C Compiler: Clang C Compiler
-CC = xcrun clang
+# C Compiler: GNU C Compiler
+CC = gcc
 
-# Linker: Clang Linker
-LD = xcrun clang++
+# Linker: GNU Linker
+LD = g++
 
-# C++ Compiler: Clang C++ Compiler
-CPP = xcrun clang++
+# C++ Compiler: GNU C++ Compiler
+CPP = g++
 
-# C++ Linker: Clang C++ Linker
-CPP_LD = xcrun clang++
+# C++ Linker: GNU C++ Linker
+CPP_LD = g++
 
-# Archiver: Clang Archiver
-AR = xcrun ar
+# Archiver: GNU Archiver
+AR = ar
 
 # MEX Tool: MEX Tool
 MEX_PATH = $(MATLAB_ARCH_BIN)
@@ -94,7 +89,7 @@ DOWNLOAD =
 EXECUTE = $(PRODUCT)
 
 # Builder: GMAKE Utility
-MAKE_PATH = %MATLAB%/bin/maci64
+MAKE_PATH = %MATLAB%/bin/glnxa64
 MAKE = "$(MAKE_PATH)/gmake"
 
 
@@ -123,27 +118,21 @@ RUN                 =
 #--------------------------------------
 
 ARFLAGS              = ruvs
-CFLAGS               = -c -isysroot $(XCODE_SDK_ROOT) -arch $(ARCHS) $(C_STANDARD_OPTS) -mmacosx-version-min=12.0 \
-                       -O3 -ffp-contract=off
-CPPFLAGS             = -c -isysroot $(XCODE_SDK_ROOT) -arch $(ARCHS) $(CPP_STANDARD_OPTS) -mmacosx-version-min=12.0 \
-                       -O3 -ffp-contract=off
-CPP_LDFLAGS          = -arch $(ARCHS) -isysroot $(XCODE_SDK_ROOT) -Wl,-rpath,@executable_path -Wl,-rpath,@executable_path/$(RELATIVE_PATH_TO_ANCHOR) $(NO_WARN_DUPLICATE_LIBRARIES)
-CPP_SHAREDLIB_LDFLAGS  = -arch $(ARCHS)  \
-                         -dynamiclib -install_name @rpath/$(notdir $(PRODUCT)) -isysroot $(XCODE_SDK_ROOT) \
-                         -Wl,$(LD_NAMESPACE) $(LD_UNDEFS) \
-                         $(NO_WARN_DUPLICATE_LIBRARIES)
+CFLAGS               = -c $(C_STANDARD_OPTS) -fPIC \
+                       -O3
+CPPFLAGS             = -c $(CPP_STANDARD_OPTS) -fPIC \
+                       -O3
+CPP_LDFLAGS          =
+CPP_SHAREDLIB_LDFLAGS  = -shared -Wl,--no-undefined
 DOWNLOAD_FLAGS       =
 EXECUTE_FLAGS        =
-LDFLAGS              = -arch $(ARCHS) -isysroot $(XCODE_SDK_ROOT) -Wl,-rpath,@executable_path -Wl,-rpath,@executable_path/$(RELATIVE_PATH_TO_ANCHOR) $(NO_WARN_DUPLICATE_LIBRARIES)
+LDFLAGS              =
 MEX_CPPFLAGS         =
 MEX_CPPLDFLAGS       =
 MEX_CFLAGS           =
 MEX_LDFLAGS          =
 MAKE_FLAGS           = -j $(MAX_MAKE_JOBS) -l $(MAX_MAKE_LOAD_AVG) -f $(MAKEFILE)
-SHAREDLIB_LDFLAGS    = -arch $(ARCHS)  \
-                       -dynamiclib -install_name @rpath/$(notdir $(PRODUCT)) -isysroot $(XCODE_SDK_ROOT) \
-                       -Wl,$(LD_NAMESPACE) $(LD_UNDEFS) \
-                       $(NO_WARN_DUPLICATE_LIBRARIES)
+SHAREDLIB_LDFLAGS    = -shared -Wl,--no-undefined
 
 
 
@@ -159,7 +148,7 @@ BUILD_TYPE = "Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR)/codegen/exe/airspy_decimate -I$(START_DIR) -I$(START_DIR)/matlab-coder-utils/c-udp -I$(MATLAB_ROOT)/extern/include
+INCLUDES_BUILDINFO = -I$(START_DIR)/codegen/exe/airspy_decimate -I$(START_DIR) -I/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate/matlab-coder-utils/c-udp -I$(MATLAB_ROOT)/extern/include
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -176,7 +165,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/matlab-coder-utils/c-udp/udp.cpp $(START_DIR)/codegen/exe/airspy_decimate/coder_posix_time.c $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_data.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_initialize.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_terminate.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate.cpp $(START_DIR)/codegen/exe/airspy_decimate/tic.cpp $(START_DIR)/codegen/exe/airspy_decimate/timeKeeper.cpp $(START_DIR)/codegen/exe/airspy_decimate/toc.cpp $(START_DIR)/codegen/exe/airspy_decimate/FIRDecimator.cpp $(START_DIR)/codegen/exe/airspy_decimate/CoderTimeAPI.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_rtwutil.cpp
+SRCS = udp.cpp $(START_DIR)/codegen/exe/airspy_decimate/coder_posix_time.c $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_data.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_initialize.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_terminate.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate.cpp $(START_DIR)/codegen/exe/airspy_decimate/tic.cpp $(START_DIR)/codegen/exe/airspy_decimate/timeKeeper.cpp $(START_DIR)/codegen/exe/airspy_decimate/toc.cpp $(START_DIR)/codegen/exe/airspy_decimate/FIRDecimator.cpp $(START_DIR)/codegen/exe/airspy_decimate/CoderTimeAPI.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_rtwutil.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -214,17 +203,19 @@ SYSTEM_LIBS =  -lm
 # C Compiler
 #---------------
 
+CFLAGS_TFL = -msse2 -fno-predictive-commoning
 CFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
-CFLAGS += $(CFLAGS_BASIC)
+CFLAGS += $(CFLAGS_TFL) $(CFLAGS_BASIC)
 
 #-----------------
 # C++ Compiler
 #-----------------
 
+CPPFLAGS_TFL = -msse2 -fno-predictive-commoning
 CPPFLAGS_BASIC = $(DEFINES) $(INCLUDES)
 
-CPPFLAGS += $(CPPFLAGS_BASIC)
+CPPFLAGS += $(CPPFLAGS_TFL) $(CPPFLAGS_BASIC)
 
 ###########################################################################
 ## INLINED COMMANDS
@@ -294,11 +285,11 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : %.CC
+%.o : %.cp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : %.cp
+%.o : %.cxx
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -307,18 +298,6 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 
 
 %.o : %.c++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : %.C++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : %.cxx
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : %.CXX
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -338,11 +317,11 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.CC
+%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cp
+%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cxx
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -351,18 +330,6 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 
 
 %.o : $(RELATIVE_PATH_TO_ANCHOR)/%.c++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.C++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.cxx
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(RELATIVE_PATH_TO_ANCHOR)/%.CXX
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -382,11 +349,11 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.CC
+%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.cp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.cp
+%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.cxx
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -395,18 +362,6 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 
 
 %.o : $(START_DIR)/codegen/exe/airspy_decimate/%.c++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.C++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.cxx
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/codegen/exe/airspy_decimate/%.CXX
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -426,11 +381,11 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.CC
+%.o : $(START_DIR)/%.cp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.cp
+%.o : $(START_DIR)/%.cxx
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -442,67 +397,7 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : $(START_DIR)/%.C++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/%.cxx
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/%.CXX
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
 %.o : $(START_DIR)/%.C
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cpp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cc
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.CC
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cp
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.CPP
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.c++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.C++
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cxx
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.CXX
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.C
-	$(CPP) $(CPPFLAGS) -o "$@" "$<"
-
-
-udp.o : $(START_DIR)/matlab-coder-utils/c-udp/udp.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
