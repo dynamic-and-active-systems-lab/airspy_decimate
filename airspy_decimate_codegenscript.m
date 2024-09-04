@@ -28,33 +28,33 @@ cfg.RuntimeChecks = true;
 % ARGS{1}{1} = coder.typeof(int32(0),[1 Inf],[0 1]);
 
 %% Invoke MATLAB Coder.
-% codegen -config cfg airspy_decimate
-
-
-cfg.CustomInclude = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate/matlab-coder-utils/c-udp';
-
-
-% cfg = coder.config('exe');
-switch computer('arch')
-case 'glnxa64'
-    cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Linux)';
-case 'win64' 
-    cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Windows)';
-case 'maci64'
-    cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Mac)';
-case 'maca64'
-    cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Mac)';
-end
-
-% cfg.GenerateExampleMain = 'GenerateCodeAndCompile'; % provides starter main.c
-
-switch computer('arch')
-case 'glnxa64'
-    codegen airspy_decimate -config cfg
-case 'win64'
-    codegen airspy_decimate -config cfg 
-case 'maci64' %Include path to c headers for UDP
-    codegen airspy_decimate matlab-coder-utils/c-udp/udp.cpp matlab-coder-utils/c-udp/udp.h -config cfg -I /Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate/matlab-coder-utils/c-udp
-case 'maca64'
-    codegen airspy_decimate -config cfg
-end
+ codegen matlab-coder-utils/c-udp/udp.cpp matlab-coder-utils/c-udp/udp.h -config cfg airspy_decimate
+ 
+ 
+% cfg.CustomInclude = '/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate/matlab-coder-utils/c-udp';
+% 
+% 
+% % cfg = coder.config('exe');
+% switch computer('arch')
+% case 'glnxa64'
+%     cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Linux)';
+% case 'win64' 
+%     cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Windows)';
+% case 'maci64'
+%     cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Mac)';
+% case 'maca64'
+%     cfg.CodeReplacementLibrary = 'DSP Intel AVX2-FMA (Mac)';
+% end
+% 
+% % cfg.GenerateExampleMain = 'GenerateCodeAndCompile'; % provides starter main.c
+% 
+% switch computer('arch')
+% case 'glnxa64'
+%     codegen airspy_decimate -config cfg
+% case 'win64'
+%     codegen airspy_decimate -config cfg 
+% case 'maci64' %Include path to c headers for UDP
+%     codegen airspy_decimate matlab-coder-utils/c-udp/udp.cpp matlab-coder-utils/c-udp/udp.h -config cfg -I /Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate/matlab-coder-utils/c-udp
+% case 'maca64'
+%     codegen airspy_decimate -config cfg
+% end

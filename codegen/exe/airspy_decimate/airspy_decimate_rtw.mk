@@ -2,7 +2,7 @@
 ## Makefile generated for component 'airspy_decimate'. 
 ## 
 ## Makefile     : airspy_decimate_rtw.mk
-## Generated on : Wed Sep 04 12:39:14 2024
+## Generated on : Wed Sep 04 12:50:25 2024
 ## Final product: $(START_DIR)/airspy_decimate
 ## Product type : executable
 ## 
@@ -148,7 +148,7 @@ BUILD_TYPE = "Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR)/codegen/exe/airspy_decimate -I$(START_DIR) -I/Users/mshafer/Library/CloudStorage/OneDrive-NorthernArizonaUniversity/CODE_PLAYGROUND/airspy_decimate/matlab-coder-utils/c-udp -I$(MATLAB_ROOT)/extern/include
+INCLUDES_BUILDINFO = -I$(START_DIR)/codegen/exe/airspy_decimate -I$(START_DIR) -I$(START_DIR)/matlab-coder-utils/c-udp -I$(MATLAB_ROOT)/extern/include
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -165,7 +165,7 @@ DEFINES = $(DEFINES_CUSTOM) $(DEFINES_STANDARD)
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = udp.cpp $(START_DIR)/codegen/exe/airspy_decimate/coder_posix_time.c $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_data.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_initialize.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_terminate.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate.cpp $(START_DIR)/codegen/exe/airspy_decimate/tic.cpp $(START_DIR)/codegen/exe/airspy_decimate/timeKeeper.cpp $(START_DIR)/codegen/exe/airspy_decimate/toc.cpp $(START_DIR)/codegen/exe/airspy_decimate/FIRDecimator.cpp $(START_DIR)/codegen/exe/airspy_decimate/CoderTimeAPI.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_rtwutil.cpp
+SRCS = $(START_DIR)/matlab-coder-utils/c-udp/udp.cpp $(START_DIR)/codegen/exe/airspy_decimate/coder_posix_time.c $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_data.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_initialize.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_terminate.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate.cpp $(START_DIR)/codegen/exe/airspy_decimate/tic.cpp $(START_DIR)/codegen/exe/airspy_decimate/timeKeeper.cpp $(START_DIR)/codegen/exe/airspy_decimate/toc.cpp $(START_DIR)/codegen/exe/airspy_decimate/FIRDecimator.cpp $(START_DIR)/codegen/exe/airspy_decimate/CoderTimeAPI.cpp $(START_DIR)/codegen/exe/airspy_decimate/airspy_decimate_rtwutil.cpp
 
 ALL_SRCS = $(SRCS)
 
@@ -398,6 +398,42 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS)
 
 
 %.o : $(START_DIR)/%.C
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.c
+	$(CC) $(CFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cpp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cc
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cp
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.cxx
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.CPP
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.c++
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+%.o : $(START_DIR)/matlab-coder-utils/c-udp/%.C
+	$(CPP) $(CPPFLAGS) -o "$@" "$<"
+
+
+udp.o : $(START_DIR)/matlab-coder-utils/c-udp/udp.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 

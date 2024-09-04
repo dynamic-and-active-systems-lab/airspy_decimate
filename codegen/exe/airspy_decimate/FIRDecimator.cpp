@@ -4,7 +4,7 @@
 // File: FIRDecimator.cpp
 //
 // MATLAB Coder version            : 24.2
-// C/C++ source code generated on  : 04-Sep-2024 12:38:58
+// C/C++ source code generated on  : 04-Sep-2024 12:50:16
 //
 
 // Include Files
@@ -16,6 +16,9 @@
 #include <sstream>
 #include <stdexcept>
 #include <string>
+
+// Custom Source Code
+#include "udp.h"
 
 // Type Definitions
 struct rtEqualityCheckInfo {
