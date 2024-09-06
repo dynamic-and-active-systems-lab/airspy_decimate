@@ -131,7 +131,9 @@ while true
     while (isempty(data))
         data = udpReceiver.receive();
         n = numel(data);
-        % disp(n);
+        %Dubugging code
+        fprintf('samps received = %f \n',n);
+        %
         rawSampsReceived = rawSampsReceived + n;
     end
     decimatedData = decimator(data);
