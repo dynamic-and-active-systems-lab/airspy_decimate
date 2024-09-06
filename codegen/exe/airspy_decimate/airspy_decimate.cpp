@@ -4,7 +4,7 @@
 // File: airspy_decimate.cpp
 //
 // MATLAB Coder version            : 24.2
-// C/C++ source code generated on  : 04-Sep-2024 12:38:58
+// C/C++ source code generated on  : 06-Sep-2024 12:39:48
 //
 
 // Include Files
@@ -205,7 +205,10 @@ void airspy_decimate()
     std::memset(&complexBuffer_data[0], 0, 128U * sizeof(creal32_T));
     udpReceiverReadComplex(udpReceiver.udpReceiver, &complexBuffer_data[0],
                            128.0);
-    //  disp(n);
+    // Dubugging code
+    std::printf("samps received = %f \n", 128.0);
+    std::fflush(stdout);
+    //
     rawSampsReceived += 128.0;
     decimator.step(complexBuffer_data, data_size, decimatedData_data,
                    decimatedData_size);

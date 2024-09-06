@@ -4,7 +4,7 @@
 // File: _coder_airspy_decimate_info.cpp
 //
 // MATLAB Coder version            : 24.2
-// C/C++ source code generated on  : 04-Sep-2024 12:38:58
+// C/C++ source code generated on  : 06-Sep-2024 12:39:48
 //
 
 // Include Files
@@ -84,7 +84,7 @@ mxArray *emlrtMexFcnProperties()
                 emlrtMxCreateString(
                     "/home/dasl/repos/airspy_decimate/airspy_decimate.m"));
   emlrtSetField(xEntryPoints, 0, "TimeStamp",
-                emlrtMxCreateDoubleScalar(739499.52195601852));
+                emlrtMxCreateDoubleScalar(739501.52290509257));
   emlrtSetField(xEntryPoints, 0, "Constructor",
                 emlrtMxCreateLogicalScalar(false));
   emlrtSetField(xEntryPoints, 0, "Visible", emlrtMxCreateLogicalScalar(true));
